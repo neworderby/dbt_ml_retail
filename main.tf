@@ -38,10 +38,10 @@ resource "yandex_iam_service_account_static_access_key" "sa-static-key" {
 }
 
 // Use keys to create bucket
-resource "yandex_storage_bucket" "analytics_engineering_airbyte" {
+resource "yandex_storage_bucket" "airbyte" {
   access_key    = yandex_iam_service_account_static_access_key.sa-static-key.access_key
   secret_key    = yandex_iam_service_account_static_access_key.sa-static-key.secret_key
-  bucket_prefix = "analytics-engineering-airbyte"
+  bucket_prefix = "airbyte"
   acl           = "public-read"
   max_size      = 32212254720
   force_destroy = true

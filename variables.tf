@@ -14,11 +14,9 @@ output "clickhouse_host_fqdn" {
 }
 
 output "yandex_storage_bucket_name" {
-  value = resource.yandex_storage_bucket.analytics_engineering_airbyte.id
+  value = resource.yandex_storage_bucket.airbyte.id
 }
-# output "yandex_storage_bucket_domain_name" {
-#   value = resource.yandex_storage_bucket.analytics_engineering_airbyte.bucket_domain_name
-# }
+
 output "yandex_iam_service_account_static_access_key" {
   value = yandex_iam_service_account_static_access_key.sa-static-key.access_key
 }

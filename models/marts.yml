@@ -1,0 +1,33 @@
+version: 2
+
+models:
+    - name: hist_sales_by_category
+      description: Sales, quantity, transactions per category
+      columns:
+        - name: category
+          tests:
+            - not_null
+    - name: hist_sales_by_mall
+      description: Sales, quantity, transactions per place
+      columns: 
+        - name: shopping_mall
+          tests: 
+            - not_null
+    - name: hist_sales_by_age_group
+      description: Sales, quantity, transactions per place
+      columns: 
+        - name: age_group
+          tests: 
+            - not_null
+    - name: hist_sales_by_month
+      description: Sales, quantity, transactions by month
+    - name: hist_sales_by_payment_month
+      description: Sales, quantity, transactions by month and payment method
+    - name: predict_sales_all
+      description: Predict values in 1 table with union statement by day
+    - name: predict_sales_by_month
+      description: Predict values in 1 table with union statement by month
+    - name: full_sales_by_day
+      description: Base and predict values in 1 table by day    
+    - name: full_sales_by_month
+      description: Base and predict values in 1 table by month    
