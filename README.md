@@ -1,7 +1,11 @@
 # Setting up Clickhouse cluster of base and predict customer shopping data with visualisation of results
 Tools:
-1. EDA, data processing, feature ingeneering, maching learning:
- - Python with Google colab enviroment
+1. EDA, data processing, feature engineering, machine learning:
+ - Python with Google colab enviroment:
+     - Pandas
+     - Numpy
+     - CatBoost
+     - Sklearn
 2. Developer Enviroment:
  - Devcontainer
 3.  Deploy Infrastructure:
@@ -241,6 +245,7 @@ Make sure it works:
 ```bash
 dbt debug
 ```
+
 Run data modeling:
 
 ```bash
