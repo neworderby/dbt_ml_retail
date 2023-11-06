@@ -213,7 +213,7 @@ If any of these commands fails printing out used software version then you are p
     ![Airbyte UI](./docs/airbyte_ui.png)
 
 ## 5. Configure Data Pipelines
-1. Put data to object storage
+1. Put the data to object storage
 
     ![](./docs/object_storage.png)
 
@@ -229,7 +229,7 @@ If any of these commands fails printing out used software version then you are p
 
     ![](./docs/clickhouse_destination.png)
 
-1. Sync data to Clickhouse Destination for each source
+1. Sync the data to Clickhouse Destination for each source
 
     ![](./docs/airbyte_sync_clickhouse.png)
 
@@ -251,7 +251,7 @@ If any of these commands fails printing out used software version then you are p
 
     ![](./models/marts.yml)   
 
-Export variables to allow connection to Clickhouse in your Cloud:
+Export variables to allow connection to Clickhouse in your Yandex Cloud:
 
 ```bash
 export CLICKHOUSE_HOST=$(terraform output -raw clickhouse_host_fqdn)
@@ -282,9 +282,9 @@ Check your marts in DBeaver:
 
 ### In Yandex DataLens:
 
-1. First change the settings in Clickhouse cluster to access the Datalens tool
+1. First change the settings in Clickhouse cluster to access the DataLens tool
 
-2. Sync your cluster with Datalens
+2. Sync your cluster with DataLens
 ![](./docs/connect_to_clickhouse.png)
 
 3. Create model
