@@ -17,8 +17,8 @@ Tools:
 
 ## Plan
 
-- [Creating a Forecast Using ML Methods in Google Colab](#1-creating-a-forecast-in-google-colab)
-- [Configure Developer Environment](#2-configure-developer-environment) with devcontainer
+- [Creating a Forecast Using ML Methods in Google Colab](#1-Create-a-Forecast-of-revenue-with-CatBoost-Library)
+- [Configure Developer Environment](#2-Configure-Developer-Environment-with-devcontainer)
 - [Deploy Infrastructure to Yandex.Cloud with Terraform](#3-deploy-infrastructure-to-yandexcloud-with-terraform)
     - Get familiar with Yandex.Cloud web UI
     - Configure `yc` CLI
@@ -29,10 +29,10 @@ Tools:
     - Configure Object Storage Source
     - Configure Clickhouse Destination
     - Sync data to Destinations
-- [Create data marts with dbt](#6-create-data-marts-with-dbt)
+- [Create data marts with dbt](#6-Create-data-marts-with-dbt)
     - Run tests with your own created Clickhouse cluster
     - Open PR and trigger automated testing with Github Actions
-- [Create dashboards with Yandex Datalens and Power BI](#7-create-dashboards)  
+- [Create dashboards with Yandex Datalens and Power BI](#7-Create-dashboards-with-Yandex-DataLens-and-Power-BI)  
 - [Delete cloud resources](#8-delete-cloud-resources)
 
 ## 1. Create a Forecast of revenue with CatBoost Library
@@ -41,7 +41,7 @@ https://github.com/neworderby/dbt_ml_retail/blob/d12a59c2e44f998559813fd1470da6e
 
 https://github.com/neworderby/Python_EDA_ML_DataViz/blob/c8f921eb90524208cd05177dfad38f85ed088466/Forecast_Retail_CatBoost.ipynb
 
-## 2. Configure Developer Environment wuth devcontainer
+## 2. Configure Developer Environment with devcontainer
 
 1. Install [Docker](https://docs.docker.com/desktop/#download-and-install) on your local machine.
 
@@ -219,17 +219,13 @@ If any of these commands fails printing out used software version then you are p
 
 1. Sync data to Clickhouse Destination
 
-    Only sync tables with `general_` prefix.
-
     ![](./docs/airbyte_sync_clickhouse_1.png)
     ![](./docs/airbyte_sync_clickhouse_2.png)
     ![](./docs/airbyte_sync_clickhouse_3.png)
 
 ## 6. Create data marts with dbt
 
-1. First run tests with your own created Clickhouse cluster
-
-Since you have synced data to S3 bucket with public access, this data now should be available with Clickhouse [s3 table engine](https://clickhouse.com/docs/en/engines/table-engines/integrations/s3)
+1. First prepare your model in marts.yaml
 
 Export variables to allow connection to Clickhouse in your Cloud:
 
@@ -244,14 +240,18 @@ Make sure it works:
 
 ```bash
 dbt debug
+```
+Run data modeling:
+
+```bash
 dbt build
 ```
 
 ![](./docs/dbt_devenv.gif)
 
-## 7. Create dashboards with Yandex Datalens and Power BI
+## 7. Create dashboards with Yandex DataLens and Power BI
 
-### In Yandex Datalens:
+### In Yandex DataLens:
 
 1. First change the settings in Clickhouse cluster to access the Datalens tool
 
