@@ -274,7 +274,7 @@ dbt build
 
 ![](./docs/dbt_build.png)
 
-Check your marts in DBeaver:
+Check your marts in Clickhouse:
 
 ![](./docs/dbt_marts.png)
 
