@@ -142,6 +142,11 @@ If any of these commands fails printing out used software version then you are p
     terraform apply
     ```
 
+    ![](./docs/deploy_terraform.png)
+
+    ![](./docs/yandex_cloud.png)
+
+
     Store terraform output values as Environment Variables:
 
     ```bash
@@ -208,10 +213,13 @@ If any of these commands fails printing out used software version then you are p
     ![Airbyte UI](./docs/airbyte_ui.png)
 
 ## 5. Configure Data Pipelines
+1. Put data to object storage
+
+    ![](./docs/object_storage.png)
 
 1. Configure Object Storage Source
 
-    ![](./docs/airbyte_source_postgres.png)
+    ![](./docs/object_storage_source.png)
 
 1. Configure Clickhouse Destination
 
@@ -219,17 +227,29 @@ If any of these commands fails printing out used software version then you are p
     terraform output -raw clickhouse_host_fqdn
     ```
 
-    ![](./docs/airbyte_destination_clickhouse.png)
+    ![](./docs/clickhouse_destination.png)
 
-1. Sync data to Clickhouse Destination
+1. Sync data to Clickhouse Destination for each source
 
-    ![](./docs/airbyte_sync_clickhouse_1.png)
-    ![](./docs/airbyte_sync_clickhouse_2.png)
-    ![](./docs/airbyte_sync_clickhouse_3.png)
+    ![](./docs/airbyte_sync_clickhouse.png)
+
+    ![](./docs/sync_data_airbyte.png)
+
+1. Check the status of replication for each source
+
+    ![](./docs/sync_status.png)
+
+    ![](./docs/sync_status_all.png)
+
+1. Check the data in Clickhouse
+
+    ![](./docs/raw_data_airbyte.png)           
 
 ## 6. Create data marts with dbt
 
 1. First prepare your model in marts.yaml
+
+    ![](./models/marts.yml)   
 
 Export variables to allow connection to Clickhouse in your Cloud:
 
@@ -252,7 +272,11 @@ Run data modeling:
 dbt build
 ```
 
-![](./docs/dbt_devenv.gif)
+![](./docs/dbt_build.png)
+
+Check your marts in DBeaver:
+
+![](./docs/dbt_marts.png)
 
 ## 7. Create dashboards with Yandex DataLens and Power BI
 
@@ -261,12 +285,19 @@ dbt build
 1. First change the settings in Clickhouse cluster to access the Datalens tool
 
 2. Sync your cluster with Datalens
+![](./docs/connect_to_clickhouse.png)
 
 3. Create model
+![](./docs/model_datalens.png)
 
 4. Create widgets
+![](./docs/widgets_datalens.png)
 
-5. Create dashboard of your widgets
+5. Create dashboard
+![](./docs/retail_dash_1.png)
+![](./docs/retail_dash_2.png)
+![](./docs/retail_dash_3.png)
+![](./docs/retail_dash_4.png)
 
 ### In Power BI
 
@@ -277,8 +308,6 @@ dbt build
 3. Create dashboard
 
 ## 8. Delete cloud resources
-
-![image](https://user-images.githubusercontent.com/34193409/214896888-3c6db293-8f1c-4931-8277-b2e4137f30a3.png)
 
 ```bash
 terraform destroy
