@@ -1,47 +1,47 @@
-# Setting up Airbyte Data Pipelines Lab
+# Setting up Clickhouse cluster of base and predict customer shopping data with visualisation of results
+Tools:
+1. EDA, data processing, feature ingeneering, maching learning:
+ - Python with Google colab enviroment
+2. Developer Enviroment:
+ - Devcontainer
+3.  Deploy Infrastructure:
+ - Yandex.Cloud
+ - Terraform
+4. Data Pipelines:
+ - Airbyte
+5. Data modeling:
+ - DBT
+6. Data visualization
+ - Yandex DataLens
+ - Power BI
 
-- Configuring Data Pipelines with [Airbyte](https://airbyte.com/)
-- Deploying Infrastructure as Code with [Terraform](https://www.terraform.io/) and [Yandex.Cloud](https://cloud.yandex.com/en-ru/)
-- Instant development with [Github Codespaces](https://docs.github.com/en/codespaces)
-- Assignment checks with [Github Actions](https://github.com/features/actions)
+## Plan
 
-## Lab plan
-
-- [Fork this repository](https://docs.github.com/en/get-started/quickstart/fork-a-repo)
-- [Configure Developer Environment](#1-configure-developer-environment)
-    - Start with GitHub Codespaces:
-    - Use devcontainer (locally)
-- [Deploy Infrastructure to Yandex.Cloud with Terraform](#2-deploy-infrastructure-to-yandexcloud-with-terraform)
+- [Creating a Forecast Using ML Methods in Google Colab](#1-creating-a-forecast-in-google-colab)
+- [Configure Developer Environment](#2-configure-developer-environment) with devcontainer
+- [Deploy Infrastructure to Yandex.Cloud with Terraform](#3-deploy-infrastructure-to-yandexcloud-with-terraform)
     - Get familiar with Yandex.Cloud web UI
     - Configure `yc` CLI
     - Populate `.env` file, Set environment variables
     - Deploy using Terraform: VM with Airbyte installed, S3 Bucket, Clickhouse
-- [Access Airbyte](#3-access-airbyte)
-    - Get VM's public IP
-    - Log into web UI
-- [Configure Data Pipelines](#4-configure-data-pipelines)
-    - Configure Postgres Source
-    - Configure Clickhouse Destination, S3 Destination
+- [Access Airbyte](#4-access-airbyte)
+- [Configure Data Pipelines](#5-configure-data-pipelines)
+    - Configure Object Storage Source
+    - Configure Clickhouse Destination
     - Sync data to Destinations
-- [Test your Pipeline with dbt](#5-test-your-pipeline-with-dbt)
+- [Create data marts with dbt](#6-create-data-marts-with-dbt)
     - Run tests with your own created Clickhouse cluster
     - Open PR and trigger automated testing with Github Actions
-- [Delete cloud resources](#delete-cloud-resources)
+- [Create dashboards with Yandex Datalens and Power BI](#7-create-dashboards)  
+- [Delete cloud resources](#8-delete-cloud-resources)
 
-## 1. Configure Developer Environment
+## 1. Create a Forecast of revenue with CatBoost Library
 
-You have got several options to set up:
- 
-<details><summary>Start with GitHub Codespaces:</summary>
-<p>
+https://github.com/neworderby/dbt_ml_retail/blob/d12a59c2e44f998559813fd1470da6eeda7bd625/Forecast/Forecast_Retail_CatBoost.ipynb
 
-![GitHub Codespaces](./docs/github_codespaces.png)
+https://github.com/neworderby/Python_EDA_ML_DataViz/blob/c8f921eb90524208cd05177dfad38f85ed088466/Forecast_Retail_CatBoost.ipynb
 
-</p>
-</details>
-
-<details><summary>Use devcontainer (locally)</summary>
-<p>
+## 2. Configure Developer Environment wuth devcontainer
 
 1. Install [Docker](https://docs.docker.com/desktop/#download-and-install) on your local machine.
 
@@ -76,7 +76,7 @@ dbt --version
 
 If any of these commands fails printing out used software version then you are probably running it on your local machine not in a dev container!
 
-## 2. Deploy Infrastructure to Yandex.Cloud with Terraform
+## 3. Deploy Infrastructure to Yandex.Cloud with Terraform
 
 1. Get familiar with Yandex.Cloud web UI
 
@@ -151,7 +151,7 @@ If any of these commands fails printing out used software version then you are p
     
     [RU] Reference: [Начало работы с Terraform by Yandex Cloud](https://cloud.yandex.ru/docs/tutorials/infrastructure-management/terraform-quickstart)
 
-## 3. Access Airbyte
+## 4. Access Airbyte
 
 1. Get VM's public IP:
 
@@ -203,13 +203,9 @@ If any of these commands fails printing out used software version then you are p
 
     ![Airbyte UI](./docs/airbyte_ui.png)
 
-## 4. Configure Data Pipelines
+## 5. Configure Data Pipelines
 
-1. Configure Postgres Source
-
-    Get database credentials: https://github.com/kzzzr/mybi-dbt-showcase/blob/main/dbt_project.yml#L34-L40
-
-    ❗️ Supply JDBC URL Parameter: `prepareThreshold=0`
+1. Configure Object Storage Source
 
     ![](./docs/airbyte_source_postgres.png)
 
@@ -221,31 +217,6 @@ If any of these commands fails printing out used software version then you are p
 
     ![](./docs/airbyte_destination_clickhouse.png)
 
-1. Configure S3 Destination
-
-    Gather Object Storage Bucket name and a pair of keys:
-
-    ```bash
-    export S3_BUCKET_NAME=$(terraform output -raw yandex_storage_bucket_name)
-    export S3_ACCESS_KEY=$(terraform output -raw yandex_iam_service_account_static_access_key)
-    export S3_SECRET_KEY=$(terraform output -raw yandex_iam_service_account_static_secret_key)
-
-    echo $S3_BUCKET_NAME
-    echo $S3_ACCESS_KEY
-    echo $S3_SECRET_KEY
-    ```
-
-    ❗️ Make sure you configure settings properly:
-    
-    - Set `s3_bucket_path` to `mybi`
-    - Set endpoint to `storage.yandexcloud.net`
-
-    ![](./docs/airbyte_destination_s3_1.png)
-
-    ❗️ Set Destination Connector S3 version to `0.1.16`. Otherwise you will get errors with Yandex.Cloud Object Storage.
-
-    ![](./docs/airbyte_destination_s3_3.png)
-
 1. Sync data to Clickhouse Destination
 
     Only sync tables with `general_` prefix.
@@ -254,15 +225,7 @@ If any of these commands fails printing out used software version then you are p
     ![](./docs/airbyte_sync_clickhouse_2.png)
     ![](./docs/airbyte_sync_clickhouse_3.png)
 
-1. Sync data to S3 Destination
-
-    Only sync tables with `general_` prefix.
-
-    ![](./docs/airbyte_sync_s3_1.png)
-    ![](./docs/airbyte_sync_s3_2.png)
-    ![](./docs/airbyte_sync_s3_3.png)
-
-## 5. Test your Pipeline with dbt
+## 6. Create data marts with dbt
 
 1. First run tests with your own created Clickhouse cluster
 
@@ -286,16 +249,29 @@ dbt build
 
 ![](./docs/dbt_devenv.gif)
 
-2. If it works for you, open PR and trigger automated testing with Github Actions
+## 7. Create dashboards with Yandex Datalens and Power BI
 
-- ❗️ Fill in your own bucket name to [.github/workflows/ci.yml](./.github/workflows/ci.yml#L58)
-- Submit your Pull Request
+### In Yandex Datalens:
 
-![Github Actions check passed](./docs/github_checks_passed.png)
+1. First change the settings in Clickhouse cluster to access the Datalens tool
 
-## Delete cloud resources
+2. Sync your cluster with Datalens
 
-⚠️ Attention! Always delete cloud resources after you finished!
+3. Create model
+
+4. Create widgets
+
+5. Create dashboard of your widgets
+
+### In Power BI
+
+1. Set your source
+
+2. Сreate dictionaries with dates and attributes
+
+3. Create dashboard
+
+## 8. Delete cloud resources
 
 ![image](https://user-images.githubusercontent.com/34193409/214896888-3c6db293-8f1c-4931-8277-b2e4137f30a3.png)
 
