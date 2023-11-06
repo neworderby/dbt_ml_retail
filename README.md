@@ -32,10 +32,10 @@ Tools:
 - [Configure Data Pipelines](#5-configure-data-pipelines)
     - Configure Object Storage Source
     - Configure Clickhouse Destination
-    - Sync data to Destinations
+    - Sync data to Destination
 - [Create data marts with dbt](#6-Create-data-marts-with-dbt)
-    - Run tests with your own created Clickhouse cluster
-    - Open PR and trigger automated testing with Github Actions
+    - Create DBT Model
+    - Run DBT model
 - [Create dashboards with Yandex Datalens and Power BI](#7-Create-dashboards-with-Yandex-DataLens-and-Power-BI)  
 - [Delete cloud resources](#8-delete-cloud-resources)
 
