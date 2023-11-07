@@ -293,7 +293,7 @@ Check your marts in Clickhouse:
 4. Create widgets
 ![](./docs/widgets_datalens.png)
 
-5. Create dashboard
+5. Create the dashboard
 ![](./docs/retail_dash_1.png)
 ![](./docs/retail_dash_2.png)
 ![](./docs/retail_dash_3.png)
@@ -307,7 +307,7 @@ Check your marts in Clickhouse:
 
 3. Create measures
 
-3. Create dashboard
+3. Create the dashboard
 
 ![](./docs/power_bi_dashboard.png)
 
