@@ -303,9 +303,13 @@ Check your marts in Clickhouse:
 
 1. Set your source
 
-2. Сreate dictionaries with dates and attributes
+2. Set the data model
+
+3. Create measures
 
 3. Create dashboard
+
+![](./docs/power_bi_dashboard.png)
 
 ## 8. Delete cloud resources
 
