@@ -311,6 +311,8 @@ Check your marts in Clickhouse:
 
 ![](./docs/power_bi_dashboard.png)
 
+https://github.com/neworderby/dbt_ml_retail/blob/main/Power%20BI/Retail%20Dashboard.pbix
+
 ## 8. Delete cloud resources
 
 ```bash
