@@ -287,7 +287,7 @@ Check your marts in Clickhouse:
 2. Sync your cluster with DataLens
 ![](./docs/connect_to_clickhouse.png)
 
-3. Create model
+3. Set the data model
 ![](./docs/model_datalens.png)
 
 4. Create widgets
