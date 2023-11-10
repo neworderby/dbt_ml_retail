@@ -39,6 +39,10 @@ Tools:
 - [Create dashboards with Yandex Datalens and Power BI](#7-Create-dashboards-with-Yandex-DataLens-and-Power-BI)  
 - [Delete cloud resources](#8-delete-cloud-resources)
 
+## Infrastructure
+
+    ![](./docs/dataflow.png)
+
 ## 1. Create a Forecast of revenue with CatBoost Library
 
 https://github.com/neworderby/dbt_ml_retail/blob/d12a59c2e44f998559813fd1470da6eeda7bd625/Forecast/Forecast_Retail_CatBoost.ipynb
