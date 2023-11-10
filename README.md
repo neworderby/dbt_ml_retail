@@ -41,7 +41,7 @@ Tools:
 
 ## Infrastructure
 
-    ![](./docs/dataflow.png)
+
 
 ## 1. Create a Forecast of revenue with CatBoost Library
 
